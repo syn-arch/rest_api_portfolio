@@ -14,7 +14,10 @@ class ExperienceController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json([
+            'message' => 'success',
+            'experiences' => Experience::all()
+        ]);
     }
 
     /**
@@ -35,7 +38,19 @@ class ExperienceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'year' => 'required',
+            'order' => 'required',
+        ]);
+
+        $experience = Experience::create($request->all());
+
+        return response()->json([
+            'message' => 'success',
+            'data' => $experience
+        ]);
     }
 
     /**
@@ -46,7 +61,10 @@ class ExperienceController extends Controller
      */
     public function show(Experience $experience)
     {
-        //
+        return response()->json([
+            'message' => 'success',
+            'data' => $experience
+        ]);
     }
 
     /**
@@ -55,7 +73,7 @@ class ExperienceController extends Controller
      * @param  \App\Models\Experience  $experience
      * @return \Illuminate\Http\Response
      */
-    public function edit(Experience $experience)
+    public function edit(Experience $e)
     {
         //
     }
@@ -69,7 +87,19 @@ class ExperienceController extends Controller
      */
     public function update(Request $request, Experience $experience)
     {
-        //
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'year' => 'required',
+            'order' => 'required',
+        ]);
+
+        $experience->update($request->all());
+
+        return response()->json([
+            'message' => 'success',
+            'data' => $experience
+        ]);
     }
 
     /**
@@ -80,6 +110,10 @@ class ExperienceController extends Controller
      */
     public function destroy(Experience $experience)
     {
-        //
+        $experience->delete();
+
+        return response()->json([
+            'message' => 'success',
+        ]);
     }
 }

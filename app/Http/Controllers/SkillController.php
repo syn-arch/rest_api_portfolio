@@ -94,7 +94,7 @@ class SkillController extends Controller
             'long_experience' => 'required',
         ]);
 
-        $skill = $skill->updateOrCreate($request->all());
+        $skill->update($request->all());
 
         return response()->json([
             'message' => 'success',
@@ -110,7 +110,7 @@ class SkillController extends Controller
      */
     public function destroy(Skill $skill)
     {
-        $skill = $skill->delete();
+        $skill->delete();
 
         return response()->json([
             'message' => 'success',
