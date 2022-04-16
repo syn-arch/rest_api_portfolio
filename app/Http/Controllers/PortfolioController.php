@@ -14,7 +14,10 @@ class PortfolioController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json([
+            'message' => 'success',
+            'data' => Portfolio::all()
+        ]);
     }
 
     /**
@@ -35,7 +38,20 @@ class PortfolioController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'picture' => 'required',
+            'description' => 'required',
+            'id_category' => 'required',
+            'tags' => 'required',
+        ]);
+
+        $portfolio = Portfolio::create($request->all());
+
+        return response()->json([
+            'message' => 'success',
+            'data' => $portfolio
+        ]);
     }
 
     /**
@@ -46,7 +62,10 @@ class PortfolioController extends Controller
      */
     public function show(Portfolio $portfolio)
     {
-        //
+        return response()->json([
+            'message' => 'success',
+            'data' => $portfolio
+        ]);
     }
 
     /**
@@ -69,7 +88,20 @@ class PortfolioController extends Controller
      */
     public function update(Request $request, Portfolio $portfolio)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'picture' => 'required',
+            'description' => 'required',
+            'id_category' => 'required',
+            'tags' => 'required',
+        ]);
+
+        $portfolio->update($request->all());
+
+        return response()->json([
+            'message' => 'success',
+            'data' => $portfolio
+        ]);
     }
 
     /**
@@ -80,6 +112,10 @@ class PortfolioController extends Controller
      */
     public function destroy(Portfolio $portfolio)
     {
-        //
+        $portfolio->delete();
+
+        return response()->json([
+            'message' => 'success',
+        ]);
     }
 }

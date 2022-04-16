@@ -16,7 +16,7 @@ class SkillController extends Controller
     {
         return response()->json([
             'message' => 'success',
-            'skills' => Skill::all()
+            'data' => Skill::all()
         ]);
     }
 
@@ -63,7 +63,7 @@ class SkillController extends Controller
     {
         return response()->json([
             'message' => 'success',
-            'skills' => $skill
+            'data' => $skill
         ]);
     }
 

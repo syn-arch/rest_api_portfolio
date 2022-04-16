@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ExperienceController;
+use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SkillController;
 use Illuminate\Support\Facades\Route;
@@ -17,7 +18,7 @@ Route::group([
     Route::post('refresh', [AuthController::class, 'refrdesh']);
 });
 
-Route::group(['middleware' => 'api'], function () {
+Route::group(['middleware' => 'auth:api'], function () {
     Route::get('profile', [ProfileController::class, 'index']);
     Route::put('profile', [ProfileController::class, 'update']);
 
@@ -38,4 +39,10 @@ Route::group(['middleware' => 'api'], function () {
     Route::post('category', [CategoryController::class, 'store']);
     Route::put('category/{category}', [CategoryController::class, 'update']);
     Route::delete('category/{category}', [CategoryController::class, 'destroy']);
+
+    Route::get('portfolios', [PortfolioController::class, 'index']);
+    Route::get('portfolios/{portfolio}', [PortfolioController::class, 'show']);
+    Route::post('portfolios', [PortfolioController::class, 'store']);
+    Route::put('portfolios/{portfolio}', [PortfolioController::class, 'update']);
+    Route::delete('portfolios/{portfolio}', [PortfolioController::class, 'destroy']);
 });

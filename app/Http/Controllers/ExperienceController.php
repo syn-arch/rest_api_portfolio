@@ -16,7 +16,7 @@ class ExperienceController extends Controller
     {
         return response()->json([
             'message' => 'success',
-            'experiences' => Experience::all()
+            'data' => Experience::all()
         ]);
     }
 

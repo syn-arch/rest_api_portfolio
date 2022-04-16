@@ -16,7 +16,7 @@ class CategoryController extends Controller
     {
         return response()->json([
             'message' => 'success',
-            'categories' => Category::all()
+            'data' => Category::all()
         ]);
     }
 
@@ -60,7 +60,7 @@ class CategoryController extends Controller
     {
         return response()->json([
             'message' => 'success',
-            'categories' => $category
+            'data' => $category
         ]);
     }
 
