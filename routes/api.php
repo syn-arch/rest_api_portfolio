@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ExperienceController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SkillController;
@@ -31,4 +32,10 @@ Route::group(['middleware' => 'api'], function () {
     Route::post('experiences', [ExperienceController::class, 'store']);
     Route::put('experiences/{experience}', [ExperienceController::class, 'update']);
     Route::delete('experiences/{experience}', [ExperienceController::class, 'destroy']);
+
+    Route::get('category', [CategoryController::class, 'index']);
+    Route::get('category/{category}', [CategoryController::class, 'show']);
+    Route::post('category', [CategoryController::class, 'store']);
+    Route::put('category/{category}', [CategoryController::class, 'update']);
+    Route::delete('category/{category}', [CategoryController::class, 'destroy']);
 });
