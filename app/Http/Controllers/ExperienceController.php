@@ -2,16 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Profile;
+use App\Models\Experience;
 use Illuminate\Http\Request;
 
-class ProfileController extends Controller
+class ExperienceController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -19,7 +14,7 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        return response()->json(['message' => 'success', 'data' => Profile::first()]);
+        //
     }
 
     /**
@@ -46,10 +41,10 @@ class ProfileController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Profile  $profile
+     * @param  \App\Models\Experience  $experience
      * @return \Illuminate\Http\Response
      */
-    public function show(Profile $profile)
+    public function show(Experience $experience)
     {
         //
     }
@@ -57,10 +52,10 @@ class ProfileController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Profile  $profile
+     * @param  \App\Models\Experience  $experience
      * @return \Illuminate\Http\Response
      */
-    public function edit(Profile $profile)
+    public function edit(Experience $experience)
     {
         //
     }
@@ -69,36 +64,21 @@ class ProfileController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Profile  $profile
+     * @param  \App\Models\Experience  $experience
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, Experience $experience)
     {
-        $request->validate([
-            'name' => 'required',
-            'profession' => 'required',
-            'picture' => 'required',
-            'about' => 'required',
-            'email' => 'required',
-            'phone' => 'required',
-            'cv' => 'required',
-        ]);
-
-        $profile = Profile::first()->updateOrCreate($request->all());
-
-        return response()->json([
-            'message' => 'success',
-            'data' => $profile
-        ]);
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Profile  $profile
+     * @param  \App\Models\Experience  $experience
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Profile $profile)
+    public function destroy(Experience $experience)
     {
         //
     }

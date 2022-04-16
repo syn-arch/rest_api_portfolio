@@ -2,16 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Profile;
+use App\Models\Skill;
 use Illuminate\Http\Request;
 
-class ProfileController extends Controller
+class SkillController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -19,7 +14,10 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        return response()->json(['message' => 'success', 'data' => Profile::first()]);
+        return response()->json([
+            'message' => 'success',
+            'skills' => Skill::all()
+        ]);
     }
 
     /**
@@ -40,27 +38,42 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required',
+            'picture' => 'required',
+            'description' => 'required',
+            'long_experience' => 'required',
+        ]);
+
+        $skill = Skill::create($request->all());
+
+        return response()->json([
+            'message' => 'success',
+            'data' => $skill
+        ]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Profile  $profile
+     * @param  \App\Models\Skill  $skill
      * @return \Illuminate\Http\Response
      */
-    public function show(Profile $profile)
+    public function show(Skill $skill)
     {
-        //
+        return response()->json([
+            'message' => 'success',
+            'skills' => $skill
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Profile  $profile
+     * @param  \App\Models\Skill  $skill
      * @return \Illuminate\Http\Response
      */
-    public function edit(Profile $profile)
+    public function edit(Skill $skill)
     {
         //
     }
@@ -69,37 +82,38 @@ class ProfileController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Profile  $profile
+     * @param  \App\Models\Skill  $skill
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, Skill $skill)
     {
         $request->validate([
-            'name' => 'required',
-            'profession' => 'required',
+            'title' => 'required',
             'picture' => 'required',
-            'about' => 'required',
-            'email' => 'required',
-            'phone' => 'required',
-            'cv' => 'required',
+            'description' => 'required',
+            'long_experience' => 'required',
         ]);
 
-        $profile = Profile::first()->updateOrCreate($request->all());
+        $skill = $skill->updateOrCreate($request->all());
 
         return response()->json([
             'message' => 'success',
-            'data' => $profile
+            'data' => $skill
         ]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Profile  $profile
+     * @param  \App\Models\Skill  $skill
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Profile $profile)
+    public function destroy(Skill $skill)
     {
-        //
+        $skill = $skill->delete();
+
+        return response()->json([
+            'message' => 'success',
+        ]);
     }
 }
