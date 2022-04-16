@@ -39,7 +39,7 @@ class ExperienceController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required',
+            'name' => 'required',
             'description' => 'required',
             'year' => 'required',
             'order' => 'required',
@@ -88,7 +88,7 @@ class ExperienceController extends Controller
     public function update(Request $request, Experience $experience)
     {
         $request->validate([
-            'title' => 'required',
+            'name' => 'required',
             'description' => 'required',
             'year' => 'required',
             'order' => 'required',

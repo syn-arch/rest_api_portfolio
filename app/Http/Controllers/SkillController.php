@@ -39,7 +39,7 @@ class SkillController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required',
+            'name' => 'required',
             'picture' => 'required',
             'description' => 'required',
             'long_experience' => 'required',
@@ -88,7 +88,7 @@ class SkillController extends Controller
     public function update(Request $request, Skill $skill)
     {
         $request->validate([
-            'title' => 'required',
+            'name' => 'required',
             'picture' => 'required',
             'description' => 'required',
             'long_experience' => 'required',
