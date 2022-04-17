@@ -18,7 +18,7 @@ Route::group([
     Route::post('refresh', [AuthController::class, 'refrdesh']);
 });
 
-Route::group(['middleware' => 'auth:api'], function () {
+Route::group(['middleware' => 'api'], function () {
     Route::get('profile', [ProfileController::class, 'index']);
     Route::put('profile', [ProfileController::class, 'update']);
 
@@ -34,11 +34,11 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::put('experiences/{experience}', [ExperienceController::class, 'update']);
     Route::delete('experiences/{experience}', [ExperienceController::class, 'destroy']);
 
-    Route::get('category', [CategoryController::class, 'index']);
-    Route::get('category/{category}', [CategoryController::class, 'show']);
-    Route::post('category', [CategoryController::class, 'store']);
-    Route::put('category/{category}', [CategoryController::class, 'update']);
-    Route::delete('category/{category}', [CategoryController::class, 'destroy']);
+    Route::get('categories', [CategoryController::class, 'index']);
+    Route::get('categories/{category}', [CategoryController::class, 'show']);
+    Route::post('categories', [CategoryController::class, 'store']);
+    Route::put('categories/{category}', [CategoryController::class, 'update']);
+    Route::delete('categories/{category}', [CategoryController::class, 'destroy']);
 
     Route::get('portfolios', [PortfolioController::class, 'index']);
     Route::get('portfolios/{portfolio}', [PortfolioController::class, 'show']);

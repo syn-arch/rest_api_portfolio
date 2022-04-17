@@ -7,9 +7,14 @@ use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
+    /**
+     * Create a new AuthController instance.
+     *
+     * @return void
+     */
     public function __construct()
     {
-        $this->middleware('auth:api');
+        $this->middleware('auth:api', ['except' => ['index']]);
     }
 
     /**
