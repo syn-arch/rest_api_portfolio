@@ -57,6 +57,8 @@ class PortfolioController extends Controller
             'tags' => 'required',
         ]);
 
+        $input = $request->all();
+
         if ($request->has('picture')) {
             $image = $request->file('picture');
             $filename = time() . rand(1, 9) . '.' . $image->getClientOriginalExtension();
@@ -64,7 +66,7 @@ class PortfolioController extends Controller
             $input['picture'] = $filename;
         }
 
-        $portfolio = Portfolio::create($request->all());
+        $portfolio = Portfolio::create($input);
 
         return response()->json([
             'message' => 'success',
@@ -116,7 +118,7 @@ class PortfolioController extends Controller
 
         $input = $request->all();
 
-        if ($request->has('picture')) {
+        if ($request->picture !== $portfolio->picture) {
             $picture = $portfolio->picture;
             File::delete('uploads/' . $picture);
 
