@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Skill;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class SkillController extends Controller
 {
@@ -50,12 +51,21 @@ class SkillController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'picture' => 'required',
+            'picture' => 'required|image|mimes:jpg,png,jpeg,svg',
             'description' => 'required',
             'long_experience' => 'required',
         ]);
 
-        $skill = Skill::create($request->all());
+        $input = $request->all();
+
+        if ($request->has('picture')) {
+            $image = $request->file('picture');
+            $filename = time() . rand(1, 9) . '.' . $image->getClientOriginalExtension();
+            $image->move('uploads', $filename);
+            $input['picture'] = $filename;
+        }
+
+        $skill = Skill::create($input);
 
         return response()->json([
             'message' => 'success',
@@ -99,12 +109,25 @@ class SkillController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'picture' => 'required',
             'description' => 'required',
             'long_experience' => 'required',
         ]);
 
-        $skill->update($request->all());
+        $input = $request->all();
+
+        if ($request->has('picture')) {
+            $picture = $skill->picture;
+            File::delete('uploads/' . $picture);
+
+            $image = $request->file('picture');
+            $filename = time() . '.' . $image->getClientOriginalExtension();
+            $image->move('uploads', $filename);
+            $input['picture'] = $filename;
+        } else {
+            unset($input['picture']);
+        }
+
+        $skill->update($input);
 
         return response()->json([
             'message' => 'success',
@@ -120,6 +143,9 @@ class SkillController extends Controller
      */
     public function destroy(Skill $skill)
     {
+        $picture = $skill->picture;
+        File::delete('uploads/' . $picture);
+
         $skill->delete();
 
         return response()->json([

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Portfolio;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class PortfolioController extends Controller
 {
@@ -50,11 +51,18 @@ class PortfolioController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'picture' => 'required',
+            'picture' => 'required|image|mimes:jpg,png,jpeg,svg',
             'description' => 'required',
             'id_category' => 'required',
             'tags' => 'required',
         ]);
+
+        if ($request->has('picture')) {
+            $image = $request->file('picture');
+            $filename = time() . rand(1, 9) . '.' . $image->getClientOriginalExtension();
+            $image->move('uploads', $filename);
+            $input['picture'] = $filename;
+        }
 
         $portfolio = Portfolio::create($request->all());
 
@@ -106,7 +114,21 @@ class PortfolioController extends Controller
             'tags' => 'required',
         ]);
 
-        $portfolio->update($request->all());
+        $input = $request->all();
+
+        if ($request->has('picture')) {
+            $picture = $portfolio->picture;
+            File::delete('uploads/' . $picture);
+
+            $image = $request->file('picture');
+            $filename = time() . '.' . $image->getClientOriginalExtension();
+            $image->move('uploads', $filename);
+            $input['picture'] = $filename;
+        } else {
+            unset($input['picture']);
+        }
+
+        $portfolio->update($input);
 
         return response()->json([
             'message' => 'success',

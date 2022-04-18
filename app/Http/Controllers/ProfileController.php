@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Profile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class ProfileController extends Controller
 {
@@ -82,18 +83,52 @@ class ProfileController extends Controller
         $request->validate([
             'name' => 'required',
             'profession' => 'required',
-            'picture' => 'required',
             'about' => 'required',
             'email' => 'required',
             'phone' => 'required',
-            'cv' => 'required',
         ]);
 
-        $profile = Profile::first()->updateOrCreate($request->all());
+        $profile = Profile::first();
+
+        $input = $request->all();
+
+        if ($request->picture !== $profile->picture) {
+            $request->validate([
+                'picture' => 'image|mimes:jpg,png,jpeg,svg'
+            ]);
+            $picture = Profile::first()->picture;
+            File::delete('uploads/' . $picture);
+
+            $image = $request->file('picture');
+            $filename = time() . rand(1, 100) . '.' . $image->getClientOriginalExtension();
+            $image->move('uploads', $filename);
+            $input['picture'] = $filename;
+        } else {
+            unset($input['picture']);
+        }
+
+        if ($request->cv !== $profile->cv) {
+            $request->validate([
+                'cv' => 'mimes:pdf'
+            ]);
+            $cv = Profile::first()->cv;
+            File::delete('uploads/' . $cv);
+
+            $image = $request->file('cv');
+            $filename = time() . rand(1, 100) . '.' . $image->getClientOriginalExtension();
+            $image->move('uploads', $filename);
+            $input['cv'] = $filename;
+        } else {
+            unset($input['cv']);
+        }
+
+        unset($input['_method']);
+
+        Profile::first()->update($input);
 
         return response()->json([
             'message' => 'success',
-            'data' => $profile
+            'data' => Profile::first()
         ]);
     }
 
