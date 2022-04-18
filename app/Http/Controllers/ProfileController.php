@@ -86,6 +86,11 @@ class ProfileController extends Controller
             'about' => 'required',
             'email' => 'required',
             'phone' => 'required',
+            'facebook' => 'required',
+            'instagram' => 'required',
+            'github' => 'required',
+            'telegram' => 'required',
+            'linkedin' => 'required',
         ]);
 
         $profile = Profile::first();
