@@ -144,6 +144,9 @@ class PortfolioController extends Controller
      */
     public function destroy(Portfolio $portfolio)
     {
+        $picture = $portfolio->picture;
+        File::delete('uploads/' . $picture);
+
         $portfolio->delete();
 
         return response()->json([

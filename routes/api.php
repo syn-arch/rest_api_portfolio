@@ -6,6 +6,7 @@ use App\Http\Controllers\ExperienceController;
 use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SkillController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::group([
@@ -21,6 +22,9 @@ Route::group([
 Route::group(['middleware' => 'api'], function () {
     Route::get('profile', [ProfileController::class, 'index']);
     Route::put('profile', [ProfileController::class, 'update']);
+
+    Route::get('user', [UserController::class, 'index']);
+    Route::put('user', [UserController::class, 'update']);
 
     Route::get('skills', [SkillController::class, 'index']);
     Route::get('skills/{skill}', [SkillController::class, 'show']);
