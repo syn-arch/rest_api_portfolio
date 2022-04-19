@@ -55,6 +55,7 @@ class PortfolioController extends Controller
             'description' => 'required',
             'id_category' => 'required',
             'tags' => 'required',
+            'link' => 'required',
         ]);
 
         $input = $request->all();
@@ -114,6 +115,7 @@ class PortfolioController extends Controller
             'description' => 'required',
             'id_category' => 'required',
             'tags' => 'required',
+            'link' => 'required',
         ]);
 
         $input = $request->all();

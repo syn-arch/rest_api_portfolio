@@ -115,7 +115,7 @@ class SkillController extends Controller
 
         $input = $request->all();
 
-        if ($request->has('picture')) {
+        if ($request->picture !== $skill->picture) {
             $picture = $skill->picture;
             File::delete('uploads/' . $picture);
 
