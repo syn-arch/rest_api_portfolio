@@ -22,6 +22,11 @@ class ProfileSeeder extends Seeder
             'email' => 'jhondoe@mail.com',
             'phone' => '+1 (555) 555-5555',
             'cv' => 'john-doe.pdf',
+            'facebook' => 'jhondoe',
+            'instagram' => 'jhondoe',
+            'github' => 'jhondoe',
+            'telegram' => 'jhondoe',
+            'linkedin' => 'jhondoe',
         ]);
     }
 }
