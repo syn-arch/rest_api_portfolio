@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ExperienceController;
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SkillController;
@@ -20,6 +21,8 @@ Route::group([
 });
 
 Route::group(['middleware' => 'api'], function () {
+    Route::post('/mail/send', [MailController::class, 'send']);
+
     Route::get('profile', [ProfileController::class, 'index']);
     Route::put('profile', [ProfileController::class, 'update']);
 
