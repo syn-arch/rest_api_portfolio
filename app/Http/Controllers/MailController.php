@@ -19,8 +19,13 @@ class MailController extends Controller
             'body' => 'required',
         ]);
 
-        Mail::to($profile->email)->send(new MailMail($request->all()));
-
-        return response()->json(['success' => 'Email is Sent!', 'data' => $request->all()]);
+        if ($request->has('verified')) {
+            if ($request->verified) {
+                Mail::to($profile->email)->send(new MailMail($request->all()));
+                return response()->json(['success' => 'Email is Sent!', 'data' => $request->all()]);
+            } else {
+                return response()->json(['success' => false, 'message' => 'reCaptcha is required'], 401);
+            }
+        }
     }
 }
